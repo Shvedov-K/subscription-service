@@ -1,10 +1,7 @@
 package com.xtended.subscriptionservice.subscription.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -45,6 +42,7 @@ public class Subscription {
     /**
      * Дата активации подписки
      */
+    @NonNull
     @Column(nullable = false)
     private LocalDate activationDate;
 

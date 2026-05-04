@@ -47,7 +47,7 @@ public class InvoiceService {
                 .subscriptionType(subscription.getType())
                 .subscriptionActivationDate(subscription.getActivationDate())
                 .build();
-        invoiceRepository.save(invoice);
+        invoice = invoiceRepository.save(invoice);
 
         InvoiceEvent invoiceEvent = new InvoiceEvent(invoice);
 
@@ -57,6 +57,13 @@ public class InvoiceService {
                 invoiceEvent, invoice.getId().toString());
     }
 
+    /**
+     * Получение списка счетов пользователя.
+     *
+     * @param userId   ID пользователя
+     * @param pageable параметры пагинации
+     * @return страница счетов пользователя
+     */
     public Page<Invoice> getUserInvoices(UUID userId, Pageable pageable) {
         return invoiceRepository.findByUserIdOrderByIssueDateDesc(userId, pageable);
     }

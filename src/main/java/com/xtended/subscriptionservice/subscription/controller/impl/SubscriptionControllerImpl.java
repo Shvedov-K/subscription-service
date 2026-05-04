@@ -6,6 +6,7 @@ import com.xtended.subscriptionservice.subscription.model.Invoice;
 import com.xtended.subscriptionservice.subscription.model.Subscription;
 import com.xtended.subscriptionservice.subscription.service.InvoiceService;
 import com.xtended.subscriptionservice.subscription.service.SubscriptionService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public class SubscriptionControllerImpl implements SubscriptionController {
     private final InvoiceService invoiceService;
     private final SubscriptionService subscriptionService;
 
-    public ResponseEntity<ApiResponse<UUID>> activate(ActivateSubscriptionRequest request) {
+    public ResponseEntity<ApiResponse<UUID>> activate(@NonNull ActivateSubscriptionRequest request) {
         Subscription subscription = subscriptionService.activateSubscription(
                 request.getUserId(), request.getSubscriptionType(), request.getActivationDate());
 
@@ -31,18 +32,18 @@ public class SubscriptionControllerImpl implements SubscriptionController {
         return ResponseEntity.ok(new ApiResponse<>(true, "OK", request.getUserId()));
     }
 
-    public ResponseEntity<ApiResponse<UUID>> deactivate(DeactivateSubscriptionRequest request) {
+    public ResponseEntity<ApiResponse<UUID>> deactivate(@NonNull DeactivateSubscriptionRequest request) {
         subscriptionService.deactivateSubscription(request.getUserId(), request.getSubscriptionType());
         return ResponseEntity.ok(new ApiResponse<>(true, "OK", request.getUserId()));
     }
 
-    public ResponseEntity<ApiResponse<SubscriptionEvent>> getActive(@PathVariable UUID userId) {
+    public ResponseEntity<ApiResponse<SubscriptionEvent>> getActive(@NonNull UUID userId) {
         Subscription subscription = subscriptionService.getActiveSubscription(userId).orElseThrow();
         return ResponseEntity.ok(new ApiResponse<>(true, "OK", new SubscriptionEvent(subscription)));
     }
 
     public ResponseEntity<ApiResponse<Page<InvoiceEvent>>> getInvoices(
-            @PathVariable UUID userId,
+            @NonNull UUID userId,
             @PageableDefault(size = 20) Pageable pageable) {
 
         Page<Invoice> page = invoiceService.getUserInvoices(userId, pageable);

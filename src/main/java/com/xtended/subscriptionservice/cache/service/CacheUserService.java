@@ -88,7 +88,7 @@ public class CacheUserService {
                     try {
                         return objectMapper.readValue((String) obj, InvoiceEvent.class);
                     } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException(e.getMessage());
                     }
                 }).toList();
 

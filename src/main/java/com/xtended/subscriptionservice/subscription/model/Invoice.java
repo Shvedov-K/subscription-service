@@ -1,10 +1,7 @@
 package com.xtended.subscriptionservice.subscription.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -46,12 +43,14 @@ public class Invoice {
     /**
      * Дата выдачи счета
      */
+    @NonNull
     @Column(nullable = false)
     private LocalDate issueDate;
 
     /**
      * Сумма в счете
      */
+    @NonNull
     @Column(nullable = false)
     private BigDecimal amount;
 
@@ -60,11 +59,13 @@ public class Invoice {
      */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @NonNull
     private SubscriptionType subscriptionType;
 
     /**
      * Дата активации подписки
      */
+    @NonNull
     @Column(nullable = false)
     private LocalDate subscriptionActivationDate;
 

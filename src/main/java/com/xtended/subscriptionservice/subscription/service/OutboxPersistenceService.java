@@ -1,5 +1,6 @@
 package com.xtended.subscriptionservice.subscription.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xtended.subscriptionservice.subscription.model.Outbox;
 import com.xtended.subscriptionservice.subscription.repository.OutboxEventRepository;
@@ -36,8 +37,8 @@ public class OutboxPersistenceService {
                     .payload(json)
                     .build();
             outboxEventRepository.save(event);
-        } catch (Exception ex) {
-            throw  new RuntimeException(ex);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
